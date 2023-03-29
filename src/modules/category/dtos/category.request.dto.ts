@@ -1,28 +1,18 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator"
+import { IsNotEmpty, IsOptional, IsString } from "class-validator"
 
-export class BookRequestDto {
+export class CategoryRequestDto {
   @IsNotEmpty()
   @IsString()
   readonly name: string
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   readonly description: string
 
-  @IsNotEmpty()
-  @IsString()
-  readonly author: string
-
-  @IsNotEmpty()
-  @IsNumber()
-  readonly year: number
-
-  constructor(dto?: BookRequestDto) {
+  constructor(dto?: CategoryRequestDto) {
     if (dto) {
       this.name = dto.name
       this.description = dto.description
-      this.author = dto.author
-      this.year = dto.year
     }
   }
 }

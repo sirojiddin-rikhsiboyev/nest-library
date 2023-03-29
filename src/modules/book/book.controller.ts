@@ -1,34 +1,35 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { BookService } from './book.service';
-import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from "@nestjs/common"
 
-@Controller('book')
+import { AsyncResponseDto, ResponseDto } from "@/app/dtos"
+import { BookRequestDto, BookResponseDto } from "./dtos"
+import { BookService } from "./book.service"
+
+@Controller("book")
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
   @Post()
-  create(@Body() createBookDto: CreateBookDto) {
-    return this.bookService.create(createBookDto);
+  async create(@Body() dto: BookRequestDto): AsyncResponseDto<BookResponseDto> {
+    return new ResponseDto(await this.bookService.create(dto))
   }
 
   @Get()
-  findAll() {
-    return this.bookService.findAll();
+  async findAll(): AsyncResponseDto<BookResponseDto[]> {
+    return new ResponseDto(await this.bookService.findAll())
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.bookService.findOne(+id);
+  @Get(":id")
+  async findOne(@Param("id", ParseIntPipe) id: number): AsyncResponseDto<BookResponseDto> {
+    return new ResponseDto(await this.bookService.findOne(id))
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.bookService.update(+id, updateBookDto);
+  @Put(":id")
+  async update(@Param("id", ParseIntPipe) id: number, @Body() dto: BookRequestDto): AsyncResponseDto<BookResponseDto> {
+    return new ResponseDto(await this.bookService.update(id, dto))
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.bookService.remove(+id);
+  @Delete(":id")
+  async remove(@Param("id", ParseIntPipe) id: number): AsyncResponseDto<BookResponseDto> {
+    return new ResponseDto(await this.bookService.remove(id))
   }
 }

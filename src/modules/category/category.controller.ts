@@ -1,34 +1,35 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CategoryService } from './category.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from "@nestjs/common"
 
-@Controller('category')
+import { AsyncResponseDto, ResponseDto } from "@/app/dtos"
+import { CategoryResponseDto, CategoryRequestDto } from "./dtos"
+import { CategoryService } from "./category.service"
+
+@Controller("category")
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoryService.create(createCategoryDto);
+  async create(@Body() dto: CategoryRequestDto): AsyncResponseDto<CategoryResponseDto> {
+    return new ResponseDto(await this.categoryService.create(dto))
   }
 
   @Get()
-  findAll() {
-    return this.categoryService.findAll();
+  async findAll(): AsyncResponseDto<CategoryResponseDto[]> {
+    return new ResponseDto(await this.categoryService.findAll())
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(+id);
+  @Get(":id")
+  async findOne(@Param("id", ParseIntPipe) id: number): AsyncResponseDto<CategoryResponseDto> {
+    return new ResponseDto(await this.categoryService.findOne(id))
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoryService.update(+id, updateCategoryDto);
+  @Put(":id")
+  async update(@Param("id", ParseIntPipe) id: number, @Body() dto: CategoryRequestDto): AsyncResponseDto<CategoryResponseDto> {
+    return new ResponseDto(await this.categoryService.update(id, dto))
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoryService.remove(+id);
+  @Delete(":id")
+  async remove(@Param("id", ParseIntPipe) id: number): AsyncResponseDto<CategoryResponseDto> {
+    return new ResponseDto(await this.categoryService.remove(id))
   }
 }

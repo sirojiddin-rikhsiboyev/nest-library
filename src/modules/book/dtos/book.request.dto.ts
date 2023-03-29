@@ -17,12 +17,17 @@ export class BookRequestDto {
   @IsNumber()
   readonly year: number
 
+  @IsNotEmpty()
+  @IsNumber()
+  readonly categoryId: number
+
   constructor(dto?: BookRequestDto) {
     if (dto) {
       this.name = dto.name
       this.description = dto.description
       this.author = dto.author
       this.year = dto.year
+      this.categoryId = dto.categoryId
     }
   }
 }

@@ -1,5 +1,5 @@
-import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import { TypeOrmModuleOptions } from "@nestjs/typeorm"
+import { SnakeNamingStrategy } from "typeorm-naming-strategies"
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: "postgres",
@@ -11,6 +11,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   entities: ["dist/**/*.entity{.ts,.js}"],
   synchronize: true,
   autoLoadEntities: true,
-  logging: true,
-  namingStrategy: new SnakeNamingStrategy(),
-};
+  logging: false,
+  namingStrategy: new SnakeNamingStrategy()
+}
