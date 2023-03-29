@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from "typeorm"
 import { AbstractEntity } from "@/app/abstracts"
-import { Book } from "@/modules/book"
+import { Book } from "@/modules/book/book.entity"
 
 @Entity("categories")
 export class Category extends AbstractEntity {

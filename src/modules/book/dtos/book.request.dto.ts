@@ -1,25 +1,29 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator"
+import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator"
+import { Type } from "class-transformer"
+import { PaginationOptionsDto } from "@/app/dtos"
 
 export class BookRequestDto {
   @IsNotEmpty()
   @IsString()
-  readonly name: string
+  public name: string
 
   @IsNotEmpty()
   @IsString()
-  readonly description: string
+  public description: string
 
   @IsNotEmpty()
   @IsString()
-  readonly author: string
+  public author: string
 
   @IsNotEmpty()
-  @IsNumber()
-  readonly year: number
+  @IsInt()
+  @Type(() => Number)
+  public year: number
 
   @IsNotEmpty()
-  @IsNumber()
-  readonly categoryId: number
+  @IsInt()
+  @Type(() => Number)
+  public categoryId: number
 
   constructor(dto?: BookRequestDto) {
     if (dto) {
@@ -30,4 +34,11 @@ export class BookRequestDto {
       this.categoryId = dto.categoryId
     }
   }
+}
+
+export class BookRequestFilterDto extends PaginationOptionsDto {
+  @IsInt()
+  @IsOptional()
+  @Type(() => Number)
+  public categoryId?: number
 }

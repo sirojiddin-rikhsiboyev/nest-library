@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from "@nestjs/common"
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from "@nestjs/common"
 
-import { AsyncResponseDto, ResponseDto } from "@/app/dtos"
-import { BookRequestDto, BookResponseDto } from "./dtos"
+import { AsyncResponseDto, PaginationOptionsDto, ResponseDto } from "@/app/dtos"
+import { BookRequestDto, BookRequestFilterDto, BookResponseDto } from "./dtos"
 import { BookService } from "./book.service"
 
 @Controller("book")
@@ -14,8 +14,8 @@ export class BookController {
   }
 
   @Get()
-  async findAll(): AsyncResponseDto<BookResponseDto[]> {
-    return new ResponseDto(await this.bookService.findAll())
+  async findAll(@Query() options: BookRequestFilterDto): AsyncResponseDto<BookResponseDto[]> {
+    return await this.bookService.findAll(options)
   }
 
   @Get(":id")
