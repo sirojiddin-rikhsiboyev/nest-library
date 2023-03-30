@@ -1,5 +1,5 @@
 import { UserRequestDto } from "@/modules/user/dtos"
-import { IsEmail, IsNotEmpty, IsString } from "class-validator"
+import { IsEmail, IsNotEmpty, IsString, Length } from "class-validator"
 
 export class RegistrationRequestDto extends UserRequestDto {}
 

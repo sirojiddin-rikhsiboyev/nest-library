@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator"
+import { IsEmail, IsNotEmpty, IsOptional, IsString, Length } from "class-validator"
 import { PaginationOptionsDto } from "@/app/dtos"
 
 export class UserRequestDto {
@@ -17,6 +17,7 @@ export class UserRequestDto {
 
   @IsOptional()
   @IsString()
+  @Length(8)
   public password: string
 
   constructor(dto?: UserRequestDto) {

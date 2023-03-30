@@ -6,7 +6,7 @@ import { hashSync } from "bcryptjs"
 import { PaginationDto, PaginationMetaDto } from "@/app/dtos"
 import { ExceptionMessage } from "@/app/enums"
 
-import { UserRequestDto, UserResponseDto, UserRequestFilterDto } from "./dtos"
+import { UserRequestDto, UserRequestFilterDto, UserResponseDto } from "./dtos"
 import { User } from "./user.entity"
 
 @Injectable()

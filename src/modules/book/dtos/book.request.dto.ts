@@ -41,4 +41,8 @@ export class BookRequestFilterDto extends PaginationOptionsDto {
   @IsOptional()
   @Type(() => Number)
   public categoryId?: number
+
+  @IsString()
+  @IsOptional()
+  public name?: string
 }
