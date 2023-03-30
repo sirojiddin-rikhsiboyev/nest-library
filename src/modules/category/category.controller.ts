@@ -1,9 +1,12 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from "@nestjs/common"
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger"
 
 import { AsyncResponseDto, ResponseDto } from "@/app/dtos"
-import { CategoryResponseDto, CategoryRequestDto } from "./dtos"
+import { CategoryRequestDto, CategoryResponseDto } from "./dtos"
 import { CategoryService } from "./category.service"
 
+@ApiBearerAuth()
+@ApiTags("category")
 @Controller("category")
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}

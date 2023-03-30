@@ -1,9 +1,12 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from "@nestjs/common"
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger"
 
-import { AsyncResponseDto, PaginationOptionsDto, ResponseDto } from "@/app/dtos"
+import { AsyncResponseDto, ResponseDto } from "@/app/dtos"
 import { BookRequestDto, BookRequestFilterDto, BookResponseDto } from "./dtos"
 import { BookService } from "./book.service"
 
+@ApiBearerAuth()
+@ApiTags("book")
 @Controller("book")
 export class BookController {
   constructor(private readonly bookService: BookService) {}

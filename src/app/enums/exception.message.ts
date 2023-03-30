@@ -6,5 +6,6 @@ export enum ExceptionMessage {
   USER_NOT_FOUND = "user_not_found",
   USER_EMAIL_EXISTS = "user_email_exits",
   INCORRECT_PASSWORD = "incorrect_password",
-  INTERNAL_SERVER = "internal_server"
+  INTERNAL_SERVER = "internal_server",
+  UNAUTHORIZED = "unauthorized"
 }

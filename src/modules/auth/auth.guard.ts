@@ -4,6 +4,7 @@ import { JwtService } from "@nestjs/jwt"
 import { ConfigService } from "@nestjs/config"
 import { Request } from "express"
 import { IS_PUBLIC_KEY } from "@/app/decorators/public.decorator"
+import { ExceptionMessage } from "@/app/enums"
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -17,13 +18,13 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest()
     const token = this.extractTokenFromHeader(request)
 
-    if (!token) throw new UnauthorizedException()
+    if (!token) throw new UnauthorizedException(ExceptionMessage.UNAUTHORIZED)
 
     try {
       const payload = await this.jwtService.verifyAsync(token, { secret: this.configService.get("JWT_SECRET") })
       request["user"] = payload
     } catch {
-      throw new UnauthorizedException()
+      throw new UnauthorizedException(ExceptionMessage.UNAUTHORIZED)
     }
 
     return true

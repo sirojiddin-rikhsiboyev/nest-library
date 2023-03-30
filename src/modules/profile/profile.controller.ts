@@ -1,10 +1,14 @@
 import { Body, Controller, Get, Put } from "@nestjs/common"
-import { ProfileService } from "./profile.service"
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger"
+
 import { User } from "@/app/decorators"
 import { AsyncResponseDto, ResponseDto } from "@/app/dtos"
 import { UserResponseDto } from "@/modules/user/dtos"
+import { ProfileService } from "./profile.service"
 import { ChangePasswordRequestDto } from "./dtos"
 
+@ApiBearerAuth()
+@ApiTags("profile")
 @Controller("profile")
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}

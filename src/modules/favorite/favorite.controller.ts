@@ -1,10 +1,13 @@
 import { Controller, Delete, Get, Param, ParseIntPipe, Post, Query } from "@nestjs/common"
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger"
 import { User } from "@/app/decorators"
 import { AsyncResponseDto, ResponseDto } from "@/app/dtos"
 import { FavoriteResponseDto } from "@/modules/favorite/dtos"
 import { BookRequestFilterDto, BookResponseDto } from "@/modules/book/dtos"
 import { FavoriteService } from "./favorite.service"
 
+@ApiBearerAuth()
+@ApiTags("favorite")
 @Controller("favorite")
 export class FavoriteController {
   constructor(private readonly favoriteService: FavoriteService) {}
