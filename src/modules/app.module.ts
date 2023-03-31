@@ -7,11 +7,11 @@ import { AuthModule } from "./auth/auth.module"
 import { UserModule } from "./user/user.module"
 import { BookModule } from "./book/book.module"
 import { CategoryModule } from "./category/category.module"
-import { ProfileModule } from './profile/profile.module';
-import { FavoriteModule } from './favorite/favorite.module';
+import { ProfileModule } from "./profile/profile.module"
+import { FavoriteModule } from "./favorite/favorite.module"
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), TypeOrmModule.forRootAsync(typeOrmConfig), BookModule, CategoryModule, UserModule, AuthModule, ProfileModule, FavoriteModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), TypeOrmModule.forRootAsync(typeOrmConfig), AuthModule, ProfileModule, UserModule, CategoryModule, BookModule, FavoriteModule],
   controllers: [],
   providers: []
 })

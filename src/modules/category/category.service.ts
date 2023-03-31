@@ -3,8 +3,9 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
 
 import { ExceptionMessage } from "@/app/enums"
-import { CategoryResponseDto, CategoryRequestDto } from "./dtos"
+import { CategoryRequestDto, CategoryResponseDto } from "./dtos"
 import { Category } from "./category.entity"
+import { PaginationDto, PaginationMetaDto, PaginationOptionsDto } from "@/app/dtos"
 
 @Injectable()
 export class CategoryService {
@@ -23,9 +24,20 @@ export class CategoryService {
     }
   }
 
-  async findAll(): Promise<CategoryResponseDto[]> {
-    const categories = await this.categoryRepository.find()
-    return categories.map((category) => new CategoryResponseDto(category))
+  async findAll(options: PaginationOptionsDto): Promise<PaginationDto<CategoryResponseDto[]>> {
+    const categories = await this.categoryRepository.find({
+      order: { id: options.order },
+      skip: options.skip,
+      take: options.take
+    })
+
+    const count = await this.categoryRepository.count()
+    const meta = new PaginationMetaDto(options, count)
+
+    return new PaginationDto(
+      categories.map((category) => new CategoryResponseDto(category)),
+      meta
+    )
   }
 
   async findOne(id: number): Promise<CategoryResponseDto> {

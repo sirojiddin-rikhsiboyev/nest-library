@@ -4,6 +4,8 @@ import { AppModule } from "./modules/app.module"
 import { HttpExceptionFilter } from "@/app/filters"
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 
+const PORT = parseInt(process.env.PORT, 10) || 3000
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
@@ -20,7 +22,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup("api", app, document)
 
-  await app.listen(3000)
+  await app.listen(PORT)
 }
 
-bootstrap()
+bootstrap().then(() => console.log(`The server is running on PORT:${PORT}`))

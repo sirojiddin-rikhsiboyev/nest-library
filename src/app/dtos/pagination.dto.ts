@@ -2,6 +2,7 @@ import { HttpStatus } from "@nestjs/common"
 import { IsEnum, IsInt, IsOptional, Max, Min } from "class-validator"
 import { Type } from "class-transformer"
 import { ResponseDto } from "./response.dto"
+import { ApiProperty } from "@nestjs/swagger"
 
 export enum Order {
   ASC = "ASC",
@@ -32,11 +33,22 @@ export class PaginationOptionsDto {
 }
 
 export class PaginationMetaDto {
+  @ApiProperty({ default: "1" })
   public page: number
+
+  @ApiProperty({ default: "10" })
   public take: number
+
+  @ApiProperty({ example: "11" })
   public itemCount: number
+
+  @ApiProperty({ example: "2" })
   public pageCount: number
+
+  @ApiProperty({ example: "false" })
   public hasPreviousPage: boolean
+
+  @ApiProperty({ example: "true" })
   public hasNextPage: boolean
 
   constructor(options: PaginationOptionsDto, count: number) {
@@ -50,6 +62,7 @@ export class PaginationMetaDto {
 }
 
 export class PaginationDto<T> extends ResponseDto<T> {
+  @ApiProperty()
   public meta: PaginationMetaDto
 
   constructor(data: T, meta: PaginationMetaDto, message?: string, status?: HttpStatus) {
